@@ -1,0 +1,128 @@
+import java_cup.runtime.*;
+
+parser code {:
+    // conectar esse parser ao scanner!
+    Scanner s;
+    Parser(Scanner s){ this.s=s; }
+
+    // tabela de símbolos
+    java.util.Map<String, Integer> simbolos = new java.util.HashMap<String, Integer>();
+:}
+
+/* conectar esse parser ao scanner! */
+init with {:  :};
+scan with {: return s.next_token(); :};
+
+terminal RESTO, RAIZ, EXPONENCIAL, DIVISAO, MULTIPLICACAO, SUBTRACAO, SOMA;
+terminal MAIOR, MAIORIGUAL, MENOR, MENORIGUAL, IGUAL, DIFERENTE, NEGACAO, AND, OR;
+
+terminal ABREPARENTESE, FECHAPARENTESE, ABREBLOCO, FECHABLOCO, FIMLINHA, INIT, ENDING, ATRIBUICAO, END;
+terminal CONDICIONAL, DESVIOCONDICIONAL, ENTRADA, SAIDA, UNTIL, FOR;
+
+terminal VARIAVEL, BALLOT, COIN, LETRA, TORF, STRING;
+
+non terminal program, statements, statement, atribuicao, atr_op;
+non terminal decl_variable, decl_call_function, decl_function;
+non terminal sum, sub, mult, div, exponencial, raiz, rest;
+non terminal block;
+non terminal condicional, expr_cond, desviocondicional;
+non terminal relacional, logic;
+non terminal rept;
+non terminal exit, entrance;
+
+precedence left VARIAVEL;
+
+start with program;
+
+program ::= INIT block ENDING;
+
+statements ::= statements statement
+            | statement;
+
+statement ::= decl_variable
+            | decl_call_function
+            | decl_function
+            | sum
+            | sub
+            | mult
+            | div
+            | exponencial
+            | raiz
+            | rest
+            | atribuicao
+            | condicional
+	    | desviocondicional
+            | rept
+            | exit
+            | entrance;
+
+decl_variable ::= VARIAVEL FIMLINHA;
+
+sum ::= COIN SOMA COIN
+    | COIN SOMA BALLOT
+    | BALLOT SOMA BALLOT
+    | BALLOT SOMA COIN;
+
+sub ::= COIN SUBTRACAO COIN
+    | COIN SUBTRACAO BALLOT
+    | BALLOT SUBTRACAO BALLOT
+    | BALLOT SUBTRACAO COIN;
+
+mult ::= COIN MULTIPLICACAO COIN
+    | COIN MULTIPLICACAO BALLOT
+    | BALLOT MULTIPLICACAO BALLOT
+    | BALLOT MULTIPLICACAO COIN;
+
+div ::= COIN DIVISAO COIN
+    | COIN DIVISAO BALLOT
+    | BALLOT DIVISAO BALLOT
+    | BALLOT DIVISAO COIN;
+
+exponencial ::= COIN EXPONENCIAL BALLOT
+    | BALLOT EXPONENCIAL BALLOT;
+
+raiz ::= BALLOT RAIZ;
+
+rest ::= BALLOT RESTO BALLOT;
+atribuicao ::= VARIAVEL ATRIBUICAO atr_op;
+
+atr_op ::= TORF
+            | LETRA
+            | COIN
+            | BALLOT
+            | sum
+            | sub
+            | mult
+            | div
+            | raiz
+            | exponencial
+            | rest;
+
+condicional ::= CONDICIONAL ABREPARENTESE expr_cond FECHAPARENTESE block;
+
+desviocondicional ::= DESVIOCONDICIONAL block;
+
+expr_cond ::= NEGACAO relacional
+              | NEGACAO relacional logic  relacional  
+              | relacional
+              | relacional logic relacional;
+
+relacional ::= VARIAVEL MAIOR VARIAVEL
+                | VARIAVEL MAIORIGUAL VARIAVEL
+                | VARIAVEL MENOR VARIAVEL
+                | VARIAVEL MENORIGUAL VARIAVEL
+                | VARIAVEL IGUAL VARIAVEL
+                | VARIAVEL DIFERENTE VARIAVEL;
+
+logic ::= AND
+         | OR;
+
+block ::= ABREBLOCO statements FECHABLOCO
+         | INIT statements ENDING;
+rept ::= UNTIL ABREPARENTESE relacional FECHAPARENTESE block
+        | FOR ABREPARENTESE atribuicao relacional sum FECHAPARENTESE block;
+
+exit ::= SAIDA ABREPARENTESE VARIAVEL FECHAPARENTESE FIMLINHA
+        | SAIDA ABREPARENTESE STRING FECHAPARENTESE FIMLINHA;
+
+entrance ::= ENTRADA ABREPARENTESE VARIAVEL FECHAPARENTESE FIMLINHA;

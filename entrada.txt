@@ -1,0 +1,29 @@
+init {
+    _num1; 
+    _num2; 
+    _op;
+    _resultado;
+	
+    speak("Entre com o primeiro numero");
+    listen(_num1)
+    speak("Entre com o segundo numero");
+    listen(_num2)
+    speak("Digite uma operacao para ser calculada");
+    listen(_op)
+
+    try this (_op &= 1) {
+	    _resultado = _num1 + _num2;	
+    }
+    try this (_op &= 1) {
+	_resultado = _num1 - _num2;
+    }
+    try this (_op &= 1) {
+	_resultado = _num1 * _num2;
+    }
+    try this (_op &= 1) {
+	_resultado = _num1 / _num2;
+    }
+
+    speak(_resultado);
+
+} ending
