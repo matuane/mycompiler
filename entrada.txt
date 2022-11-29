@@ -12,16 +12,16 @@ init {
     listen(_op)
 
     try this (_op &= 1) {
-	    _resultado = _num1 + _num2;	
+	    _resultado : _num1 + _num2;	
     }
     try this (_op &= 1) {
-	_resultado = _num1 - _num2;
+	_resultado : _num1 - _num2;
     }
     try this (_op &= 1) {
-	_resultado = _num1 * _num2;
+	_resultado : _num1 * _num2;
     }
     try this (_op &= 1) {
-	_resultado = _num1 / _num2;
+	_resultado : _num1 / _num2;
     }
 
     speak(_resultado);
