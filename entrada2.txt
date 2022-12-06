@@ -1,13 +1,13 @@
 init {
     _num1; 
     _resultado;
-    _i;
+    _ii;
     _j;
 
     speak("Entre com o primeiro numero");
     listen(_num1);
     
-    for(_i : _num1; _i > 0; _i : _i + 1 ) {
+    for(_i : _num1; _i > 0; _i : _i + 1; ) {
         speak(_i);
     }
 

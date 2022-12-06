@@ -5,11 +5,11 @@ init {
     _resultado;
 	
     speak("Entre com o primeiro numero");
-    listen(_num1)
+    listen(_num1);
     speak("Entre com o segundo numero");
-    listen(_num2)
+    listen(_num2);
     speak("Digite uma operacao para ser calculada");
-    listen(_op)
+    listen(_op);
 
     try this (_op &= 1) {
 	    _resultado : _num1 + _num2;	

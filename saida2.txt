@@ -1,10 +1,13 @@
-Análise Léxica: Lista de Tokens:<23, init, INIT>
+Análise Sintática realizada com sucesso!
+Análise Léxica:
+ Lista de Tokens:
+<23, init, INIT>
 <20, {, ABREBLOCO>
 <33, _num1, VARIAVEL>
 <22, ;, FIMLINHA>
 <33, _resultado, VARIAVEL>
 <22, ;, FIMLINHA>
-<33, _i, VARIAVEL>
+<33, _ii, VARIAVEL>
 <22, ;, FIMLINHA>
 <33, _j, VARIAVEL>
 <22, ;, FIMLINHA>
@@ -33,6 +36,7 @@ Análise Léxica: Lista de Tokens:<23, init, INIT>
 <33, _i, VARIAVEL>
 <8, +, SOMA>
 <34, 1, BALLOT>
+<22, ;, FIMLINHA>
 <19, ), FECHAPARENTESE>
 <20, {, ABREBLOCO>
 <30, speak, SAIDA>

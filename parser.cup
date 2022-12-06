@@ -7,6 +7,20 @@ parser code {:
 
     // tabela de símbolos
     java.util.Map<String, Integer> simbolos = new java.util.HashMap<String, Integer>();
+
+    public void report_error(String message, Object info)  {
+        System.out.println("Warning - " + message);
+    }
+
+    public void report_fatal_error(String message, Object info)  {
+        System.out.println("Error - " + message);
+        System.exit(-1);
+    }
+
+    public void syntax_error(Symbol s){
+        report_error("Erro de sintaxe. Linha: " + (s.right + 1) +
+        " Coluna: " + s.left + ". Texto: " + s.value, null);
+    }
 :}
 
 /* conectar esse parser ao scanner! */
@@ -51,7 +65,7 @@ statement ::= decl_variable
             | rest
             | atribuicao
             | condicional
-	    | desviocondicional
+	        | desviocondicional
             | rept
             | exit
             | entrance;
@@ -61,22 +75,43 @@ decl_variable ::= VARIAVEL FIMLINHA;
 sum ::= COIN SOMA COIN
     | COIN SOMA BALLOT
     | BALLOT SOMA BALLOT
-    | BALLOT SOMA COIN;
+    | BALLOT SOMA COIN
+    | COIN SOMA VARIAVEL
+    | VARIAVEL SOMA BALLOT
+    | BALLOT SOMA VARIAVEL
+    | VARIAVEL SOMA COIN
+    | VARIAVEL SOMA VARIAVEL;
+    
 
 sub ::= COIN SUBTRACAO COIN
     | COIN SUBTRACAO BALLOT
     | BALLOT SUBTRACAO BALLOT
-    | BALLOT SUBTRACAO COIN;
+    | BALLOT SUBTRACAO COIN
+    | COIN SUBTRACAO VARIAVEL
+    | VARIAVEL SUBTRACAO BALLOT
+    | BALLOT SUBTRACAO VARIAVEL
+    | VARIAVEL SUBTRACAO COIN
+    | VARIAVEL SUBTRACAO VARIAVEL;
 
 mult ::= COIN MULTIPLICACAO COIN
     | COIN MULTIPLICACAO BALLOT
     | BALLOT MULTIPLICACAO BALLOT
-    | BALLOT MULTIPLICACAO COIN;
+    | BALLOT MULTIPLICACAO COIN
+    | COIN MULTIPLICACAO VARIAVEL
+    | VARIAVEL MULTIPLICACAO BALLOT
+    | BALLOT MULTIPLICACAO VARIAVEL
+    | VARIAVEL MULTIPLICACAO COIN
+    | VARIAVEL MULTIPLICACAO VARIAVEL;
 
 div ::= COIN DIVISAO COIN
     | COIN DIVISAO BALLOT
     | BALLOT DIVISAO BALLOT
-    | BALLOT DIVISAO COIN;
+    | BALLOT DIVISAO COIN
+    | COIN DIVISAO VARIAVEL
+    | VARIAVEL DIVISAO BALLOT
+    | BALLOT DIVISAO VARIAVEL
+    | VARIAVEL DIVISAO COIN
+    | VARIAVEL DIVISAO VARIAVEL;
 
 exponencial ::= COIN EXPONENCIAL BALLOT
     | BALLOT EXPONENCIAL BALLOT;
@@ -84,12 +119,13 @@ exponencial ::= COIN EXPONENCIAL BALLOT
 raiz ::= BALLOT RAIZ;
 
 rest ::= BALLOT RESTO BALLOT;
-atribuicao ::= VARIAVEL ATRIBUICAO atr_op;
+atribuicao ::= VARIAVEL ATRIBUICAO atr_op FIMLINHA;
 
 atr_op ::= TORF
             | LETRA
             | COIN
             | BALLOT
+            | VARIAVEL
             | sum
             | sub
             | mult
@@ -112,7 +148,31 @@ relacional ::= VARIAVEL MAIOR VARIAVEL
                 | VARIAVEL MENOR VARIAVEL
                 | VARIAVEL MENORIGUAL VARIAVEL
                 | VARIAVEL IGUAL VARIAVEL
-                | VARIAVEL DIFERENTE VARIAVEL;
+                | VARIAVEL DIFERENTE VARIAVEL
+                | VARIAVEL MAIOR BALLOT
+                | VARIAVEL MAIORIGUAL BALLOT
+                | VARIAVEL MENOR BALLOT
+                | VARIAVEL MENORIGUAL BALLOT
+                | VARIAVEL IGUAL BALLOT
+                | VARIAVEL DIFERENTE BALLOT
+                | VARIAVEL MAIOR COIN
+                | VARIAVEL MAIORIGUAL COIN
+                | VARIAVEL MENOR COIN
+                | VARIAVEL MENORIGUAL COIN
+                | VARIAVEL IGUAL COIN
+                | VARIAVEL DIFERENTE COIN
+                | VARIAVEL MAIOR TORF
+                | VARIAVEL MAIORIGUAL TORF
+                | VARIAVEL MENOR TORF
+                | VARIAVEL MENORIGUAL TORF
+                | VARIAVEL IGUAL TORF
+                | VARIAVEL DIFERENTE TORF
+                | VARIAVEL MAIOR LETRA
+                | VARIAVEL MAIORIGUAL LETRA
+                | VARIAVEL MENOR LETRA
+                | VARIAVEL MENORIGUAL LETRA
+                | VARIAVEL IGUAL LETRA
+                | VARIAVEL DIFERENTE LETRA;
 
 logic ::= AND
          | OR;
@@ -120,7 +180,7 @@ logic ::= AND
 block ::= ABREBLOCO statements FECHABLOCO
          | INIT statements ENDING;
 rept ::= UNTIL ABREPARENTESE relacional FECHAPARENTESE block
-        | FOR ABREPARENTESE atribuicao relacional sum FECHAPARENTESE block;
+        | FOR ABREPARENTESE atribuicao relacional FIMLINHA atribuicao FECHAPARENTESE block;
 
 exit ::= SAIDA ABREPARENTESE VARIAVEL FECHAPARENTESE FIMLINHA
         | SAIDA ABREPARENTESE STRING FECHAPARENTESE FIMLINHA;

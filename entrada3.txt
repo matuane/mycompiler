@@ -3,23 +3,23 @@ init {
     _resultado;
     _value;
     _saque;
-    _a
+    _a;
 
     _result : 0;
     _a : true;
 
     until(_a &= true) {
         speak("Escolha uma opcao 1 Depositar 2 Sacar 3 Consultar saldo 4 Sair");
-        listen(_op)
+        listen(_op);
 
         try this (_op &= 1) {
             speak("Digite o valor que deseja depositar");
-            listen(_value)
+            listen(_value);
             _resultado : _result + _value;	
         }
         try this (_op &= 1) {
            speak("Digite o valor que deseja Sacar");
-            listen(_saque)
+            listen(_saque);
             _resultado : _result - _saque;
         }
         try this (_op &= 1) {

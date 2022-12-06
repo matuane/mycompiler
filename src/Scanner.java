@@ -743,7 +743,7 @@ class Scanner implements java_cup.runtime.Scanner {
             // fall through
           case 40: break;
           case 2:
-            { throw new Error("Illegal character <"+
+            { throw new Error("Caracter não reconhecido <"+
                                                         yytext()+">");
             }
             // fall through

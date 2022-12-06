@@ -31,6 +31,11 @@ string = (\")({letra}|{digito}|{whiteSpace})+(\")
 %}
 
 %%
+
+{letra} {
+    return new Symbol (Tokens.LETRA, yyline, yycolumn, yytext());
+}
+
 "+" {return new Symbol (Tokens.SOMA, yyline, yycolumn, yytext());}
 "-" {return new Symbol (Tokens.SUBTRACAO, yyline, yycolumn, yytext());}
 "*" {return new Symbol (Tokens.MULTIPLICACAO, yyline, yycolumn, yytext());}
@@ -77,10 +82,6 @@ string = (\")({letra}|{digito}|{whiteSpace})+(\")
     return new Symbol (Tokens.TORF, yyline, yycolumn, yytext());
 }
 
-{letra} {
-    return new Symbol (Tokens.LETRA, yyline, yycolumn, yytext());
-}
-
 {string} {
     return new Symbol (Tokens.STRING, yyline, yycolumn, yytext());
 }
@@ -89,5 +90,5 @@ string = (\")({letra}|{digito}|{whiteSpace})+(\")
 {whiteSpace} { /* ignore */ }
 
 /* error fallback */
-    [^]                              { throw new Error("Illegal character <"+
+    [^]                              { throw new Error("Caracter não reconhecido <"+
                                                         yytext()+">"); }

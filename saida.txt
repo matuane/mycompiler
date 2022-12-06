@@ -1,4 +1,7 @@
-Análise Léxica: Lista de Tokens:<23, init, INIT>
+Análise Sintática realizada com sucesso!
+Análise Léxica:
+ Lista de Tokens:
+<23, init, INIT>
 <20, {, ABREBLOCO>
 <33, _num1, VARIAVEL>
 <22, ;, FIMLINHA>
@@ -17,6 +20,7 @@ Análise Léxica: Lista de Tokens:<23, init, INIT>
 <18, (, ABREPARENTESE>
 <33, _num1, VARIAVEL>
 <19, ), FECHAPARENTESE>
+<22, ;, FIMLINHA>
 <30, speak, SAIDA>
 <18, (, ABREPARENTESE>
 <38, "Entre com o segundo numero", STRING>
@@ -26,6 +30,7 @@ Análise Léxica: Lista de Tokens:<23, init, INIT>
 <18, (, ABREPARENTESE>
 <33, _num2, VARIAVEL>
 <19, ), FECHAPARENTESE>
+<22, ;, FIMLINHA>
 <30, speak, SAIDA>
 <18, (, ABREPARENTESE>
 <38, "Digite uma operacao para ser calculada", STRING>
@@ -35,6 +40,7 @@ Análise Léxica: Lista de Tokens:<23, init, INIT>
 <18, (, ABREPARENTESE>
 <33, _op, VARIAVEL>
 <19, ), FECHAPARENTESE>
+<22, ;, FIMLINHA>
 <27, try this, CONDICIONAL>
 <18, (, ABREPARENTESE>
 <33, _op, VARIAVEL>
